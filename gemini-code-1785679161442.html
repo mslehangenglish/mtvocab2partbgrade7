@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tiếng Anh Tương Tác - Ms Lê Hằng English</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-grad-1: #8854C0;
+            --bg-grad-2: #FDCB6E;
+            --bg-grad-3: #00C9A7;
+            --bg-grad-4: #E84393;
+            --correct-color: #00D26A;
+            --correct-shadow: #00A352;
+            --wrong-color: #FF4757;
+            --wrong-shadow: #D63031;
+            --btn-default: #F0F3F8;
+            --btn-shadow: #CBD0D9;
+            --text-dark: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-4));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            padding: 20px 10px 60px 10px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SVG Background Patterns */
+        .bg-patterns {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath fill='%23FFFFFF' d='M30 15 l3 7 h7 l-5 5 l2 7 l-7-4 l-7 4 l2-7 l-5-5 h7 z M80 70 l4 9 h9 l-7 6 l3 9 l-9-5 l-9 5 l3-9 l-7-6 h9 z M15 85 a 8 8 0 1 0 16 0 a 8 8 0 1 0 -16 0 M90 20 a 10 10 0 1 0 20 0 a 10 10 0 1 0 -20 0'%3E%3C/path%3E%3C/svg%3E");
+            animation: floatingPattern 25s linear infinite;
+        }
+
+        @keyframes floatingPattern {
+            from { background-position: 0 0; }
+            to { background-position: 500px 1000px; }
+        }
+
+        .main-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .teacher-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #8854C0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 12px;
+        }
+
+        /* Banner Notification */
+        .notice-banner {
+            background: #FFF3BF;
+            border: 3px solid #FCC419;
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+            animation: pulseBanner 2s infinite alternate;
+        }
+
+        @keyframes pulseBanner {
+            0% { transform: scale(0.99); }
+            100% { transform: scale(1.01); }
+        }
+
+        .notice-title {
+            color: #E67700;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .notice-body {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #495057;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .notice-highlight {
+            display: block;
+            margin-top: 6px;
+            color: #D9480F;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            border: 4px solid #FFFFFF;
+            transition: transform 0.2s ease;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #8854C0;
+            color: white;
+            font-weight: 900;
+            padding: 4px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #2D3436;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        .question-text u {
+            text-decoration: none;
+            border-bottom: 3px solid #E84393;
+            color: #D63031;
+            font-weight: 900;
+            padding-bottom: 2px;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background: var(--btn-default);
+            border: 2px solid #DCDFE6;
+            border-radius: 18px;
+            padding: 14px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2D3436;
+            cursor: pointer;
+            box-shadow: 0 6px 0 var(--btn-shadow);
+            transition: all 0.15s ease;
+            text-align: left;
+            position: relative;
+            outline: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 var(--btn-shadow);
+            background: #FFFFFF;
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--btn-shadow);
+        }
+
+        .option-btn.correct {
+            background: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00B159 !important;
+            box-shadow: 0 6px 0 var(--correct-shadow) !important;
+        }
+
+        .option-btn.wrong {
+            background: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #E03B4B !important;
+            box-shadow: 0 6px 0 var(--wrong-shadow) !important;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            background: #F8F9FA;
+            border-left: 6px solid #8854C0;
+            border-radius: 12px;
+            padding: 16px;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exp-title {
+            font-weight: 900;
+            color: #8854C0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exp-step {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #2D3436;
+        }
+
+        .exp-step-title {
+            font-weight: 800;
+            color: #0984E3;
+        }
+
+        /* Bottom Submit Area */
+        .submit-section {
+            text-align: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .submit-btn {
+            background: #00C9A7;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 900;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 8px 0 #00967D;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #00967D;
+        }
+
+        .submit-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 3px 0 #00967D;
+        }
+
+        /* Result Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            padding: 32px 24px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.6); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .score-badge {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #FDCB6E;
+            color: #D63031;
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px auto;
+            box-shadow: 0 8px 0 #E1B12C;
+        }
+
+        .modal-feedback {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #2D3436;
+            margin: 15px 0 25px 0;
+            line-height: 1.5;
+        }
+
+        .close-modal-btn {
+            background: #8854C0;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #6C38A1;
+        }
+
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-patterns"></div>
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="main-wrapper">
+        <header>
+            <div class="teacher-tag">Giáo viên tạo: Ms Lê Hằng English</div>
+        </header>
+
+        <div class="notice-banner">
+            <div class="notice-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</div>
+            <div class="notice-body">
+                Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.
+                Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!
+                <span class="notice-highlight">* Kéo tới đâu, làm tới đó! *</span>
+            </div>
+        </div>
+
+        <!-- Dynamic Questions Container -->
+        <div id="quiz-container"></div>
+
+        <div class="submit-section">
+            <button class="submit-btn" onclick="submitQuiz()">NỘP BÀI THI 🚀</button>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal-overlay" id="result-modal">
+        <div class="modal-content">
+            <div class="score-badge" id="modal-score">0/23</div>
+            <h2 style="color: #8854C0; font-weight: 900;" id="modal-title">KẾT QUẢ BÀI THI</h2>
+            <div class="modal-feedback" id="modal-msg"></div>
+            <button class="close-modal-btn" onclick="closeModal()">Đóng & Xem Lại Bài</button>
+        </div>
+    </div>
+
+    <script>
+        // --- QUIZ DATA (100% COMPLETE BASED ON NEW QUESTIONS 11-33) ---
+        const quizData = [
+            {
+                id: 11,
+                label: "Câu 11",
+                question: "_____ visiting Ha Long Bay? - That's a good idea!",
+                options: ["A. How about", "B. Let's", "C. What about", "D. A & C are correct"],
+                correct: 3,
+                explanation: {
+                    step1: "Dịch câu: '_____ đi thăm Vịnh Hạ Long? - Đó là một ý kiến hay đấy!'",
+                    step2: "Dịch nghĩa 4 đáp án:<br>• A. How about (+ V-ing): Thế còn... thì sao?<br>• B. Let's (+ V-bare): Hãy...<br>• C. What about (+ V-ing): Thế còn... thì sao?<br>• D. A & C are correct: Cả A và C đều đúng ngữ pháp.",
+                    step3: "Tại sao chọn D? Cả hai cấu trúc 'How about + V-ing' và 'What about + V-ing' đều được dùng để đưa ra lời gợi ý rủ rê làm gì. Phía sau khoảng trống là 'visiting' (dạng V-ing) nên cả A và C đều chính xác.",
+                    step4: "Tại sao B sai? Vì 'Let's' đi với động từ nguyên thể không 'to' (Let's visit)."
+                }
+            },
+            {
+                id: 12,
+                label: "Câu 12",
+                question: "Does Nam often play marbles _____ recess?",
+                options: ["A. on", "B. at", "C. in", "D. between"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Nam có thường chơi bắn bi vào giờ ra chơi không?'",
+                    step2: "Dịch nghĩa các giới từ:<br>• A. on: Trên / Vào (thứ, ngày)<br>• B. at: Vào lúc / Tại<br>• C. in: Trong (tháng, năm, mùa)<br>• D. between: Ở giữa",
+                    step3: "Tại sao chọn B? Cụm từ cố định chỉ thời gian 'vào giờ ra chơi' trong tiếng Anh luôn đi với giới từ 'at' -> 'at recess'.",
+                    step4: "Tại sao A, C, D sai? Các giới từ on, in, between không kết hợp với 'recess' để tạo thành cụm từ có nghĩa này."
+                }
+            },
+            {
+                id: 13,
+                label: "Câu 13",
+                question: "Students have two _____ each day.",
+                options: ["A. 20-minutes breaks", "B. 20-minute breaks", "C. 20-minute break", "D. 20-minutes break"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Học sinh có hai giờ giải lao 20 phút mỗi ngày.'",
+                    step2: "Phân tích cấu tạo tính từ ghép:<br>• A. 20-minutes breaks (Sai cụm tính từ ghép)<br>• B. 20-minute breaks (Đúng cấu trúc ngữ pháp)<br>• C. 20-minute break (Sai dạng số ít sau từ 'two')<br>• D. 20-minutes break (Sai tính từ ghép & danh từ)",
+                    step3: "Tại sao chọn B? Cấu trúc tính từ ghép chỉ thời gian/đo lường: [Số đếm - Danh từ số ít] (20-minute). Phía trước có số đếm 'two' nên danh từ chính 'breaks' đứng cuối phải ở dạng số nhiều (thêm 's').",
+                    step4: "Tại sao A, C, D sai? A và D sai vì từ 'minute' trong tính từ ghép bị thêm 's'; C sai vì danh từ chính 'break' thiếu 's' khi đứng sau 'two'."
+                }
+            },
+            {
+                id: 14,
+                label: "Câu 14",
+                question: "_____ is a kilo of ST 25 rice? - About 35,000 VND.",
+                options: ["A. What cost", "B. When", "C. How much", "D. How many"],
+                correct: 2,
+                explanation: {
+                    step1: "Dịch câu: 'Một cân gạo ST 25 giá bao nhiêu? - Khoảng 35.000 VNĐ.'",
+                    step2: "Dịch nghĩa các từ hỏi:<br>• A. What cost: Giá gì (Ngữ pháp không chuẩn)<br>• B. When: Khi nào (Hỏi thời gian)<br>• C. How much: Bao nhiêu (Hỏi giá tiền)<br>• D. How many: Bao nhiêu (Hỏi số lượng đếm được)",
+                    step3: "Tại sao chọn C? Dựa vào câu trả lời 'About 35.000 VND' (giá tiền), ta áp dụng cấu trúc hỏi giá tiền với danh từ: 'How much is/are + N?'.",
+                    step4: "Tại sao A, B, D sai? When dùng hỏi thời gian; How many hỏi số lượng đồ vật đếm được số nhiều."
+                }
+            },
+            {
+                id: 15,
+                label: "Câu 15",
+                question: "Hanoi is the capital city, but it is _____ than HCM City.",
+                options: ["A. the smaller", "B. smaller", "C. smallest", "D. small"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Hà Nội là thủ đô, nhưng nó nhỏ hơn Thành phố Hồ Chí Minh.'",
+                    step2: "Phân tích các dạng so sánh của 'small':<br>• A. the smaller: Dạng thừa mạo từ 'the'<br>• B. smaller: Dạng so sánh hơn của tính từ ngắn<br>• C. smallest: Dạng so sánh nhất<br>• D. small: Dạng tính từ nguyên thể",
+                    step3: "Tại sao chọn B? Trong câu có từ nhận biết 'than' dùng trong so sánh hơn giữa 2 đối tượng (Hà Nội & TP.HCM). 'Small' là tính từ ngắn nên thêm đuôi '-er' thành 'smaller'.",
+                    step4: "Tại sao A, C, D sai? A thừa mạo từ 'the'; C là so sánh nhất (cần 3 đối tượng trở lên); D chưa chia dạng so sánh."
+                }
+            },
+            {
+                id: 16,
+                label: "Câu 16",
+                question: "The summer vacation usually _____ for almost three months.",
+                options: ["A. is lasting", "B. lasts", "C. is", "D. will last"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Kỳ nghỉ hè thường kéo dài gần ba tháng.'",
+                    step2: "Phân tích 4 động từ chia theo thì:<br>• A. is lasting: Hiện tại tiếp diễn<br>• B. lasts: Hiện tại đơn (ngôi 3 số ít)<br>• C. is: Động từ To Be<br>• D. will last: Tương lai đơn",
+                    step3: "Tại sao chọn B? Trạng từ chỉ tần suất 'usually' chỉ một sự thật/quy luật lặp đi lặp lại -> Dùng thì Hiện tại đơn. Chủ ngữ 'The summer vacation' là danh từ số ít nên động từ 'last' phải thêm 's' thành 'lasts'.",
+                    step4: "Tại sao A, C, D sai? A dùng thì tiếp diễn không đúng bản chất quy luật; C thiếu động từ chính 'last'; D chia tương lai đơn không hợp lý."
+                }
+            },
+            {
+                id: 17,
+                label: "Câu 17",
+                question: "It _____ me about two hours to do my homework each day.",
+                options: ["A. takes", "B. costs", "C. uses", "D. spends"],
+                correct: 0,
+                explanation: {
+                    step1: "Dịch câu: 'Tớ mất khoảng hai tiếng để làm bài tập về nhà mỗi ngày.'",
+                    step2: "Dịch nghĩa 4 động từ:<br>• A. takes: Tốn / Mất (thời gian)<br>• B. costs: Trị giá / Tốn (tiền bạc)<br>• C. uses: Sử dụng<br>• D. spends: Dành (thời gian)",
+                    step3: "Tại sao chọn A? Cấu trúc cố định diễn tả việc tốn bao nhiêu thời gian làm gì: 'It takes + somebody + time + to-V'.",
+                    step4: "Tại sao B, C, D sai? 'Cost' đi với chi phí tiền bạc; 'Spend' đi với chủ ngữ chỉ người (S + spend + time + V-ing)."
+                }
+            },
+            {
+                id: 18,
+                label: "Câu 18",
+                question: "Trinh Cong Son _____ many excellent songs.",
+                options: ["A. was compose", "B. composed", "C. composes", "D. did composed"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Trịnh Công Sơn đã sáng tác nhiều bài hát tuyệt vời.'",
+                    step2: "Phân tích 4 dạng động từ:<br>• A. was compose: Sai ngữ pháp<br>• B. composed: Đã sáng tác (Thì quá khứ đơn)<br>• C. composes: Sáng tác (Thì hiện tại đơn)<br>• D. did composed: Sai ngữ pháp",
+                    step3: "Tại sao chọn B? Diễn tả sự việc đã diễn ra và kết thúc hoàn toàn trong quá khứ của cố nhạc sĩ Trịnh Công Sơn -> Chia thì Quá khứ đơn (V-ed: composed).",
+                    step4: "Tại sao A, C, D sai? A và D bị thừa trợ động từ/To Be; C dùng hiện tại đơn là sai vì tác giả đã qua đời."
+                }
+            },
+            {
+                id: 19,
+                label: "Câu 19",
+                question: "You should wear a hat and put on suncream to avoid _____.",
+                options: ["A. skin", "B. fitness", "C. activity", "D. sunburn"],
+                correct: 3,
+                explanation: {
+                    step1: "Dịch câu: 'Bạn nên đội mũ và bôi kem chống nắng để tránh bị cháy nắng.'",
+                    step2: "Dịch nghĩa 4 danh từ:<br>• A. skin (n): Làn da<br>• B. fitness (n): Sự khỏe mạnh / Thể hình<br>• C. activity (n): Hoạt động<br>• D. sunburn (n): Sự cháy nắng",
+                    step3: "Tại sao chọn D? Việc đội mũ (wear a hat) và bôi kem chống nắng (put on suncream) giúp phòng tránh tác hại ánh nắng mặt trời -> 'sunburn' (cháy nắng) là danh từ phù hợp nhất về ngữ cảnh.",
+                    step4: "Tại sao A, B, C sai? Da, sức khỏe hay hoạt động không phải là điều cần đội mũ bôi kem để 'tránh' (avoid)."
+                }
+            },
+            {
+                id: 20,
+                label: "Câu 20",
+                question: "Her hands are red and _____ because of working outside all winter.",
+                options: ["A. warm", "B. smooth", "C. healthy", "D. chapped"],
+                correct: 3,
+                explanation: {
+                    step1: "Dịch câu: 'Bàn tay của cô ấy bị đỏ và nứt nẻ vì làm việc ngoài trời suốt mùa đông.'",
+                    step2: "Dịch nghĩa 4 tính từ:<br>• A. warm (adj): Ấm áp<br>• B. smooth (adj): Mịn màng<br>• C. healthy (adj): Khỏe mạnh<br>• D. chapped (adj): Nứt nẻ",
+                    step3: "Tại sao chọn D? Dựa vào vế nguyên nhân 'working outside all winter' (làm việc ngoài trời mùa đông lạnh giá) -> Làm cho đôi tay bị đỏ (red) và nứt nẻ (chapped).",
+                    step4: "Tại sao A, B, C sai? Ấm áp, mịn màng, khỏe mạnh đều là các tính từ tích cực, trái ngược với tác hại của thời tiết đông giá."
+                }
+            },
+            {
+                id: 21,
+                label: "Câu 21",
+                question: "Find the mistake: 'She <u>should watch more</u> television because it will harm your eyes.'",
+                options: ["A. should watch more -> shouldn't watch", "B. because -> so", "C. harm -> harms", "D. eyes -> eye"],
+                correct: 0,
+                explanation: {
+                    step1: "Dịch câu gốc: 'Cô ấy nên xem nhiều ti vi hơn vì nó sẽ gây hại cho mắt.'",
+                    step2: "Phân tích các phương án sửa:<br>• A. Sửa 'should watch more' thành 'shouldn't watch' (không nên xem nhiều)<br>• B. Sửa 'because' thành 'so'<br>• C. Sửa 'harm' thành 'harms'<br>• D. Sửa 'eyes' thành 'eye'",
+                    step3: "Tại sao chọn A? Vế sau nêu lý do 'because it will harm eyes' (vì nó làm hại mắt) -> Do đó khuyên 'should watch more' (nên xem nhiều hơn) là bị mâu thuẫn về nghĩa. Cần sửa thành 'shouldn't watch' hoặc 'watch less'.",
+                    step4: "Tại sao B, C, D sai? B, C, D không giải quyết được sự mâu thuẫn về mặt logic ý nghĩa của hai vế."
+                }
+            },
+            {
+                id: 22,
+                label: "Câu 22",
+                question: "Find the mistake: 'Her hobbies are different <u>to</u> mine.'",
+                options: ["A. hobbies -> hobby", "B. are -> is", "C. to -> from", "D. mine -> my"],
+                correct: 2,
+                explanation: {
+                    step1: "Dịch câu: 'Sở thích của cô ấy thì khác với sở thích của tớ.'",
+                    step2: "Phân tích các đáp án cần sửa:<br>• A. hobbies -> hobby<br>• B. are -> is<br>• C. to -> from<br>• D. mine -> my",
+                    step3: "Tại sao chọn C? Cấu trúc chuẩn trong tiếng Anh diễn tả sự khác biệt là 'be different from' (khác với). Dùng giới từ 'to' ở đây là sai ngữ pháp.",
+                    step4: "Tại sao A, B, D sai? 'hobbies' là số nhiều đi với 'are' là đúng; 'mine' là đại từ sở hữu đúng ngữ pháp."
+                }
+            },
+            {
+                id: 23,
+                label: "Câu 23",
+                question: "Find the mistake: 'He loves skating and so <u>do</u> his brother.'",
+                options: ["A. loves -> love", "B. skating -> skate", "C. do -> does", "D. brother -> brothers"],
+                correct: 2,
+                explanation: {
+                    step1: "Dịch câu: 'Cậu ấy thích trượt băng và anh trai cậu ấy cũng vậy.'",
+                    step2: "Phân tích lỗi sai ngữ pháp:<br>• A. loves -> love<br>• B. skating -> skate<br>• C. do -> does<br>• D. brother -> brothers",
+                    step3: "Tại sao chọn C? Cấu trúc đồng tình khẳng định: 'So + trợ động từ + Chủ ngữ'. Chủ ngữ đứng sau 'his brother' là danh từ số ít (ngôi 3) nên trợ động từ ở hiện tại đơn phải là 'does', không dùng 'do'.",
+                    step4: "Tại sao A, B, D sai? 'loves' chia theo 'He' là đúng; sau 'love' dùng V-ing 'skating' là chính xác."
+                }
+            },
+            {
+                id: 24,
+                label: "Câu 24",
+                question: "Find the mistake: 'Every child enjoys eating <u>fry</u> chicken and French fries.'",
+                options: ["A. child -> children", "B. enjoys -> enjoy", "C. fry -> fried", "D. fries -> fry"],
+                correct: 2,
+                explanation: {
+                    step1: "Dịch câu: 'Mọi đứa trẻ đều thích ăn gà rán và khoai tây chiên.'",
+                    step2: "Phân tích các từ nghi vấn lỗi:<br>• A. child -> children<br>• B. enjoys -> enjoy<br>• C. fry -> fried<br>• D. fries -> fry",
+                    step3: "Tại sao chọn C? Món 'gà rán' trong tiếng Anh sử dụng dạng Quá khứ phân tử làm tính từ: 'fried chicken'. Dùng động từ nguyên thể 'fry' ở vị trí này là sai.",
+                    step4: "Tại sao A, B, D sai? 'Every child' đi với động từ chia số ít 'enjoys' là hoàn toàn đúng ngữ pháp."
+                }
+            },
+            {
+                id: 25,
+                label: "Câu 25",
+                question: "Find the mistake: 'Excuse me! I'd like two <u>kilo</u> of beef, please.'",
+                options: ["A. Excuse -> Excuses", "B. I'd like -> I like", "C. kilo -> kilos", "D. beef -> beefs"],
+                correct: 2,
+                explanation: {
+                    step1: "Dịch câu: 'Xin lỗi! Làm ơn cho tớ lấy 2 cân thịt bò.'",
+                    step2: "Phân tích các lựa chọn sửa lỗi:<br>• A. Excuse -> Excuses<br>• B. I'd like -> I like<br>• C. kilo -> kilos<br>• D. beef -> beefs",
+                    step3: "Tại sao chọn C? Đứng sau số đếm 'two' (hai) thì danh từ chỉ đơn vị 'kilo' bắt buộc phải ở dạng số nhiều là 'kilos' (thêm 's').",
+                    step4: "Tại sao A, B, D sai? 'beef' là danh từ không đếm được không thêm 's'; 'I'd like' mang nghĩa đặt hàng rất lịch sự."
+                }
+            },
+            {
+                id: 26,
+                label: "Câu 26",
+                question: "The boy enjoys _____ (have) his lunch at school.",
+                options: ["A. have", "B. having", "C. to have", "D. had"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Cậu bé thích ăn trưa tại trường.'",
+                    step2: "Phân tích 4 dạng động từ 'have':<br>• A. have: Động từ nguyên thể<br>• B. having: Dạng V-ing<br>• C. to have: Dạng To-V<br>• D. had: Quá khứ đơn",
+                    step3: "Tại sao chọn B? Áp dụng cấu trúc ngữ pháp: 'enjoy + V-ing' (Thích làm gì đó). Do đó động từ 'have' chuyển thành 'having'.",
+                    step4: "Tại sao A, C, D sai? Không đúng công thức ngữ pháp đứng sau động từ 'enjoy'."
+                }
+            },
+            {
+                id: 27,
+                label: "Câu 27",
+                question: "He usually _____ (go) jogging for half an hour before breakfast.",
+                options: ["A. goes", "B. go", "C. is going", "D. went"],
+                correct: 0,
+                explanation: {
+                    step1: "Dịch câu: 'Cậu ấy thường đi chạy bộ khoảng nửa tiếng trước bữa sáng.'",
+                    step2: "Phân tích dạng động từ 'go':<br>• A. goes: Chia thì hiện tại đơn ngôi 3 số ít<br>• B. go: Nguyên thể<br>• C. is going: Hiện tại tiếp diễn<br>• D. went: Quá khứ đơn",
+                    step3: "Tại sao chọn A? Dấu hiệu 'usually' (thường xuyên) chỉ thói quen -> Chia thì Hiện tại đơn. Chủ ngữ 'He' đòi hỏi động từ 'go' thêm 'es' thành 'goes'.",
+                    step4: "Tại sao B, C, D sai? B thiếu 'es'; C và D dùng sai thì ngữ pháp."
+                }
+            },
+            {
+                id: 28,
+                label: "Câu 28",
+                question: "After the party, I _____ (collect) twenty bottles from various parts of the house last week.",
+                options: ["A. collect", "B. collected", "C. have collected", "D. am collecting"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Sau bữa tiệc, tớ đã thu gom 20 vỏ chai từ nhiều góc nhà vào tuần trước.'",
+                    step2: "Phân tích 4 dạng động từ chia thì:<br>• A. collect: Hiện tại đơn nguyên thể<br>• B. collected: Quá khứ đơn (thêm -ed)<br>• C. have collected: Hiện tại hoàn thành<br>• D. am collecting: Hiện tại tiếp diễn",
+                    step3: "Tại sao chọn B? Trong câu có mốc thời gian 'last week' (tuần trước) đã chấm dứt hoàn toàn trong quá khứ -> Dùng thì Quá khứ đơn (V-ed: collected).",
+                    step4: "Tại sao A, C, D sai? Đều chia sai thì so với mốc thời gian 'last week'."
+                }
+            },
+            {
+                id: 29,
+                label: "Câu 29",
+                question: "Yesterday, I (wake) up at 9 o'clock, (have) breakfast and (listen) to music.",
+                options: ["A. wake - have - listen", "B. woke - had - listened", "C. waked - haved - listened", "D. woke - have - listen"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu: 'Hôm qua, tớ đã thức dậy lúc 9 giờ, ăn sáng và nghe nhạc.'",
+                    step2: "Phân tích các chuỗi dạng động từ:<br>• A. Dạng nguyên thể hiện tại<br>• B. woke - had - listened (Đúng thì quá khứ đơn)<br>• C. Dạng chia quá khứ sai động từ bất quy tắc<br>• D. Chia dở dang chưa đồng bộ",
+                    step3: "Tại sao chọn B? Dấu hiệu 'Yesterday' chỉ một chuỗi hành động nối tiếp nhau trong quá khứ -> Dùng Quá khứ đơn cho cả 3 động từ: wake -> woke, have -> had, listen -> listened.",
+                    step4: "Tại sao A, C, D sai? Wake và Have là động từ bất quy tắc không thêm -ed như đáp án C; A và D dùng sai thì."
+                }
+            },
+            {
+                id: 30,
+                label: "Câu 30",
+                question: "Choose the word OPPOSITE in meaning to 'given up': 'Have you <u>given up</u> smoking yet?'",
+                options: ["A. stop", "B. begin", "C. finish", "D. continue"],
+                correct: 3,
+                explanation: {
+                    step1: "Dịch câu hỏi: Tìm từ TRÁI NGHĨA với cụm từ 'given up' trong câu: 'Cậu đã từ bỏ việc hút thuốc chưa?'",
+                    step2: "Dịch nghĩa 4 đáp án:<br>• A. stop (v): Dừng lại<br>• B. begin (v): Bắt đầu<br>• C. finish (v): Hoàn thành<br>• D. continue (v): Tiếp tục",
+                    step3: "Tại sao chọn D? Cụm 'give up' nghĩa là từ bỏ, ngưng làm gì. Từ TRÁI NGHĨA hoàn toàn với từ bỏ/dừng lại là 'continue' (tiếp tục làm).",
+                    step4: "Tại sao A, B, C sai? Stop/Finish là từ đồng nghĩa/gần nghĩa; Begin mang nghĩa bắt đầu một hành động mới."
+                }
+            },
+            {
+                id: 31,
+                label: "Câu 31",
+                question: "Choose the word OPPOSITE in meaning to 'complicated': 'This new application is so <u>complicated</u>. I can hardly use it.'",
+                options: ["A. expensive", "B. simple", "C. sophisticated", "D. stable"],
+                correct: 1,
+                explanation: {
+                    step1: "Dịch câu hỏi: Tìm từ TRÁI NGHĨA với từ 'complicated' trong câu: 'Ứng dụng mới này rất phức tạp. Tớ hầu như không dùng được.'",
+                    step2: "Dịch nghĩa 4 đáp án:<br>• A. expensive (adj): Đắt đỏ<br>• B. simple (adj): Đơn giản / Dễ dùng<br>• C. sophisticated (adj): Phức tạp / Tinh vi<br>• D. stable (adj): Ổn định",
+                    step3: "Tại sao chọn B? 'complicated' có nghĩa là rắc rối, phức tạp. Từ TRÁI NGHĨA trực tiếp là 'simple' (đơn giản, dễ dùng).",
+                    step4: "Tại sao A, C, D sai? Expensive (đắt) không liên quan; Sophisticated là từ đồng nghĩa; Stable có nghĩa là ổn định."
+                }
+            },
+            {
+                id: 32,
+                label: "Câu 32",
+                question: "Choose the word CLOSEST in meaning to 'suggestions': 'The teacher gave some <u>suggestions</u> on what could come out for the examination.'",
+                options: ["A. advice", "B. warnings", "C. notice", "D. caution"],
+                correct: 0,
+                explanation: {
+                    step1: "Dịch câu hỏi: Tìm từ ĐỒNG NGHĨA (Gần nghĩa nhất) với từ 'suggestions' trong câu: 'Thầy giáo đã đưa ra một số gợi ý về những gì có thể xuất hiện trong bài thi.'",
+                    step2: "Dịch nghĩa 4 đáp án:<br>• A. advice (n): Lời khuyên / Gợi ý<br>• B. warnings (n): Lời cảnh báo<br>• C. notice (n): Thông báo<br>• D. caution (n): Sự cẩn trọng",
+                    step3: "Tại sao chọn A? 'suggestions' (những lời đề xuất, gợi ý định hướng) ĐỒNG NGHĨA gần nhất với 'advice' (lời khuyên, tư vấn).",
+                    step4: "Tại sao B, C, D sai? Warnings (cảnh báo lỗi sai) hay Caution (sự đề phòng) không mang nghĩa gợi ý kiến thức ôn thi."
+                }
+            },
+            {
+                id: 33,
+                label: "Câu 33",
+                question: "Choose the word CLOSEST in meaning to 'enjoys': 'Mai <u>enjoys</u> making crafts, especially bracelets.'",
+                options: ["A. adores", "B. detests", "C. dislikes", "D. hates"],
+                correct: 0,
+                explanation: {
+                    step1: "Dịch câu hỏi: Tìm từ ĐỒNG NGHĨA với từ 'enjoys' trong câu: 'Mai rất thích làm đồ thủ công, đặc biệt là vòng tay.'",
+                    step2: "Dịch nghĩa 4 đáp án:<br>• A. adores (v): Yêu thích / Mê<br>• B. detests (v): Ghét cay ghét đắng<br>• C. dislikes (v): Không thích<br>• D. hates (v): Ghét",
+                    step3: "Tại sao chọn A? 'enjoys' mang nghĩa là yêu thích. Từ ĐỒNG NGHĨA chuẩn xác nhất là 'adores' (mê/yêu thích làm gì).",
+                    step4: "Tại sao B, C, D sai? Cả 3 từ này đều mang nghĩa ghét/không thích (trái ngược hoàn toàn với 'enjoys')."
+                }
+            }
+        ];
+
+        // Global State variables
+        let userAnswers = new Array(quizData.length).fill(null);
+
+        // Web Audio API Audio Generators
+        function playCorrectSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.25); // A5
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch(e){}
+        }
+
+        function playWrongSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                osc.frequency.linearRampToValueAtTime(130, ctx.currentTime + 0.3); // C3
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch(e){}
+        }
+
+        // Pure JS Confetti Effect
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const colors = ['#00D26A', '#FF4757', '#FDCB6E', '#8854C0', '#00C9A7', '#E84393'];
+            
+            for(let i=0; i<80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: Math.random() * 4 + 3,
+                    rot: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 8
+                });
+            }
+
+            let frame = 0;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rot += p.rotSpeed;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    ctx.restore();
+                });
+                frame++;
+                if(frame < 100) {
+                    requestAnimationFrame(animate);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            animate();
+        }
+
+        // Shuffle Array Function
+        function shuffleOptions(array) {
+            let arr = array.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Render Questions
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, qIdx) => {
+                // Shuffle options for this question
+                const shuffled = shuffleOptions(q.options);
+                q.shuffledOptions = shuffled;
+
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${qIdx}`;
+
+                let optionsHTML = '';
+                shuffled.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <button class="option-btn" 
+                                id="opt-${qIdx}-${optIdx}" 
+                                onclick="selectOption(${qIdx}, ${optIdx}, ${opt.originalIndex})">
+                            ${opt.text}
+                        </button>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="question-number">${q.label} (Bài ${qIdx + 1}/${quizData.length})</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-grid" id="opts-grid-${qIdx}">
+                        ${optionsHTML}
+                    </div>
+                    <div class="explanation-box" id="exp-${qIdx}">
+                        <div class="exp-title">💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</div>
+                        <div class="exp-step"><span class="exp-step-title">Bước 1 (Dịch câu):</span> ${q.explanation.step1}</div>
+                        <div class="exp-step"><span class="exp-step-title">Bước 2 (Từ vựng/Đáp án):</span><br>${q.explanation.step2}</div>
+                        <div class="exp-step"><span class="exp-step-title">Bước 3 (Tại sao ĐÚNG):</span> ${q.explanation.step3}</div>
+                        <div class="exp-step"><span class="exp-step-title">Bước 4 (Tại sao SAI):</span> ${q.explanation.step4}</div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // Handle User Answer Selection
+        function selectOption(qIdx, shuffledIdx, originalIdx) {
+            if(userAnswers[qIdx] !== null) return; // Prevent changing answer
+
+            const q = quizData[qIdx];
+            userAnswers[qIdx] = (originalIdx === q.correct);
+
+            const grid = document.getElementById(`opts-grid-${qIdx}`);
+            const buttons = grid.querySelectorAll('.option-btn');
+            
+            // Disable all buttons in this question
+            buttons.forEach(btn => btn.disabled = true);
+
+            const selectedBtn = document.getElementById(`opt-${qIdx}-${shuffledIdx}`);
+
+            if(originalIdx === q.correct) {
+                selectedBtn.classList.add('correct');
+                playCorrectSound();
+                triggerConfetti();
+            } else {
+                selectedBtn.classList.add('wrong');
+                playWrongSound();
+                
+                // Highlight the correct answer in green
+                q.shuffledOptions.forEach((opt, idx) => {
+                    if(opt.originalIndex === q.correct) {
+                        document.getElementById(`opt-${qIdx}-${idx}`).classList.add('correct');
+                    }
+                });
+            }
+
+            // Show explanation immediately
+            const expBox = document.getElementById(`exp-${qIdx}`);
+            expBox.style.display = 'block';
+        }
+
+        // Submit Quiz & Show Result Modal
+        function submitQuiz() {
+            let correctCount = 0;
+            userAnswers.forEach(ans => {
+                if(ans === true) correctCount++;
+            });
+
+            const total = quizData.length;
+            const percentage = Math.round((correctCount / total) * 100);
+
+            document.getElementById('modal-score').innerText = `${correctCount}/${total}`;
+
+            let feedback = '';
+            if(percentage < 50) {
+                feedback = '“Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!”';
+            } else if(percentage <= 80) {
+                feedback = '“Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!”';
+            } else {
+                feedback = '“Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha!”';
+                triggerConfetti();
+            }
+
+            document.getElementById('modal-msg').innerText = feedback;
+            document.getElementById('result-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('result-modal').style.display = 'none';
+        }
+
+        // Initialize Quiz on load
+        window.onload = renderQuiz;
+    </script>
+</body>
+</html>
